@@ -15,6 +15,7 @@ function App() {
   const [link, setLink] = useState('');
   const [pak, setPak] = useState('');
   const [us, setUs] = useState('');
+  const [aud, setAud] = useState('');
   const [desc, setDesc] = useState('');
 
   const handleSubmit = () => {
@@ -23,12 +24,16 @@ function App() {
       const resData = res.data;
       setImage(resData.image.large);
       setName(resData.name);
-      setSymbol(resData.symbol);
+      setSymbol('Symbol "' + resData.symbol + '"');
       setLink(resData.links.homepage[0]);
-      setPak('Pakistani Price: Rs ' + resData.market_data.current_price.pkr);
+      setPak('Pakistan: Rs.' + resData.market_data.current_price.pkr);
       setUs('United State: $' + resData.market_data.current_price.usd);
+      setAud('Australia: $' + resData.market_data.current_price.usd);
       setDesc(JSON.stringify(resData.description.en));
     })
+  }
+  function createMarkup() {
+    return { __html: desc }
   }
   return (
     <>
@@ -51,18 +56,21 @@ function App() {
           </Col>
         </Row>
         <Row className='m-3 d-flex justify-content-center'>
-          <Col md={4} className="p-4">
-            <img src={image} alt="" width='150' />
-            <br />
-            <h2>{name}</h2>
-            <h3>{symbol}</h3>
-            <h4><a href={link}>{link}</a></h4>
-            <br />
-            <h3>{pak}</h3>
-            <h3>{us}</h3>
+          <Col md={4} >
+            <div className='mt-3 d-flex flex-column align-items-center'>
+              <img src={image} alt="" width='150' />
+              <h3>{name}</h3>
+              <h4>{symbol}</h4>
+              <h5><a href={link}>{link}</a></h5>
+            </div>
+            <div className='mt-4'>
+              <h6>{pak}</h6>
+              <h6>{us}</h6>
+              <h6>{aud}</h6>
+            </div>
           </Col>
           <Col md={8}>
-            <p>{desc}</p>
+            <p dangerouslySetInnerHTML={createMarkup()}></p>
           </Col>
         </Row>
       </Container>
