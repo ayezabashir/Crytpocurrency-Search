@@ -15,6 +15,7 @@ function App() {
   const [link, setLink] = useState('');
   const [pak, setPak] = useState('');
   const [us, setUs] = useState('');
+  const [desc, setDesc] = useState('');
 
   const handleSubmit = () => {
     const url = 'https://api.coingecko.com/api/v3/coins/' + crypto;
@@ -26,6 +27,7 @@ function App() {
       setLink(resData.links.homepage[0]);
       setPak('Pakistani Price: Rs ' + resData.market_data.current_price.pkr);
       setUs('United State: $' + resData.market_data.current_price.usd);
+      setDesc(JSON.stringify(resData.description.en));
     })
   }
   return (
@@ -49,7 +51,7 @@ function App() {
           </Col>
         </Row>
         <Row className='m-3 d-flex justify-content-center'>
-          <Col sm={4} className="p-4">
+          <Col md={4} className="p-4">
             <img src={image} alt="" width='150' />
             <br />
             <h2>{name}</h2>
@@ -58,6 +60,9 @@ function App() {
             <br />
             <h3>{pak}</h3>
             <h3>{us}</h3>
+          </Col>
+          <Col md={8}>
+            <p>{desc}</p>
           </Col>
         </Row>
       </Container>
