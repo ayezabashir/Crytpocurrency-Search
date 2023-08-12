@@ -20,7 +20,12 @@ function App() {
     const url = 'https://api.coingecko.com/api/v3/coins/' + crypto;
     axios.get(url).then(res => {
       const resData = res.data;
-
+      setImage(resData.image.large);
+      setName(resData.name);
+      setSymbol(resData.symbol);
+      setLink(resData.links.homepage[0]);
+      setPak('Pakistani Price: Rs ' + resData.market_data.current_price.pkr);
+      setUs('United State: $' + resData.market_data.current_price.usd);
     })
   }
   return (
@@ -49,7 +54,7 @@ function App() {
             <br />
             <h2>{name}</h2>
             <h3>{symbol}</h3>
-            <a href={link}>{link}</a>
+            <h4><a href={link}>{link}</a></h4>
             <br />
             <h3>{pak}</h3>
             <h3>{us}</h3>
