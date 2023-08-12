@@ -15,7 +15,11 @@ function App() {
   const [link, setLink] = useState('');
   const [pak, setPak] = useState('');
   const [us, setUs] = useState('');
+  const [aed, setAed] = useState('');
+  const [inr, setInr] = useState('');
   const [aud, setAud] = useState('');
+  const [votesup, setVotesup] = useState('');
+  const [votesdown, setVotesdown] = useState('');
   const [desc, setDesc] = useState('');
 
   const handleSubmit = () => {
@@ -29,6 +33,10 @@ function App() {
       setPak('Pakistan: Rs.' + resData.market_data.current_price.pkr);
       setUs('United State: $' + resData.market_data.current_price.usd);
       setAud('Australia: $' + resData.market_data.current_price.usd);
+      setAed('UAE : AED ' + resData.market_data.current_price.aed);
+      setInr('India :  ' + resData.market_data.current_price.inr);
+      setVotesup('Sentiment Votes-up: ' + resData.sentiment_votes_up_percentage + '%');
+      setVotesdown('Sentiment Votes-down: ' + resData.sentiment_votes_down_percentage + '%');
       setDesc(JSON.stringify(resData.description.en));
     })
   }
@@ -64,9 +72,15 @@ function App() {
               <h5><a href={link}>{link}</a></h5>
             </div>
             <div className='mt-4'>
-              <h6>{pak}</h6>
-              <h6>{us}</h6>
+              <h6>{votesup}</h6>
+              <h6>{votesdown}</h6>
+            </div>
+            <div className='mt-4'>
+              <h6>{aed}</h6>
               <h6>{aud}</h6>
+              <h6>{pak}</h6>
+              <h6>{inr}</h6>
+              <h6>{us}</h6>
             </div>
           </Col>
           <Col md={8}>
