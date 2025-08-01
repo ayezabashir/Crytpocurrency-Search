@@ -23,8 +23,9 @@ function App() {
   const [desc, setDesc] = useState('');
 
   const handleSubmit = () => {
-    const url = 'https://api.coingecko.com/api/v3/coins/' + crypto;
-    axios.get(url).then(res => {
+    const url = 'https://api.coingecko.com/api/v3/coins/' + crypto.toLowerCase();
+  axios.get(url)
+    .then(res => {
       const resData = res.data;
       setImage(resData.image.large);
       setName(resData.name);
@@ -39,6 +40,20 @@ function App() {
       setVotesdown('Sentiment Votes-down: ' + resData.sentiment_votes_down_percentage + '%');
       setDesc(JSON.stringify(resData.description.en));
     })
+    .catch(error => {
+      setName('Error: Invalid Cryptocurrency ID');
+      setSymbol('');
+      setLink('');
+      setPak('');
+      setUs('');
+      setAud('');
+      setAed('');
+      setInr('');
+      setVotesup('');
+      setVotesdown('');
+      setImage('');
+      setDesc('<b>Please enter a valid cryptocurrency name (e.g., bitcoin, ethereum).</b>');
+    });
   }
   function createMarkup() {
     return { __html: desc }
